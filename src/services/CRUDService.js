@@ -29,11 +29,23 @@ let hashUserPassword = (password) => {
         try {
             let hashPossword = bcrypt.hashSync('B4c0//', salt);
             resolve(hashPossword);
-            // Store hash in your password DB.
         } catch (e) {
             reject(e);
         }
     });
 };
 
-module.exports = { createNewUser };
+let getAllUser = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            let users = db.User.findAll({
+                raw: true,
+            });
+            resolve(users);
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+module.exports = { createNewUser, getAllUser };
